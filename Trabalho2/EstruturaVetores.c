@@ -390,7 +390,8 @@ Retorno (No*)
     No*, ponteiro para o início da lista com cabeçote
 */
 No *montarListaEncadeadaComCabecote() {
-  Lista *l = criarLista();
+  No *l = (No*)malloc(sizeof(No));
+  l->prox = NULL;
   No *novo;
   int i, j;
   for (i = 0; i < TAM; i++) {
@@ -400,9 +401,9 @@ No *montarListaEncadeadaComCabecote() {
       }
     }
   }
-  // printList(l->inicio);
+  //printList(l->prox);
   if (i == TAM) {
-    return l->inicio;
+    return l;
   }
   return NULL;
 }
@@ -413,26 +414,11 @@ vetorAux. Retorno void
 */
 void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[]) {
   No *p;
-  int i = 0, j, k;
-
-  // printList(inicio);
-  for (p = inicio; p != NULL; p = p->prox) {
+  int i=0;
+  for(p=inicio->prox;p!=NULL; p=p->prox){
     vetorAux[i] = p->conteudo;
     i++;
-    // printf("%d->",vetorAux[i-1]);
   }
-  // printf("\n%d\n",i);
-  int aux[i];
-  for (j = 0, k = i - 1; j < i; j++, k--) {
-    aux[j] = vetorAux[k];
-    // printf("%d->", aux[j]);
-  }
-  // printf("\n%d\n",j);
-  for (i = 0; i < j; i++) {
-    vetorAux[i] = aux[i];
-    // printf("%d->", aux[i]);
-  }
-  // printf("\n%d\n",i);
 }
 
 /*
@@ -487,14 +473,6 @@ int insertion_sort(int size, int vet[]) {
   return SUCESSO;
 }
 
-// Criar Lista
-Lista *criarLista() {
-  Lista *lista = malloc(sizeof(Lista));
-  lista->inicio = NULL;
-
-  return lista;
-}
-
 // Criar Nó para inserir na lista
 No *criarNo(int valor) {
   No *no = malloc(sizeof(No));
@@ -507,11 +485,15 @@ No *criarNo(int valor) {
   return no;
 }
 
-void addList(Lista *l, No *novo) {
-  if (l->inicio == NULL) {
-    l->inicio = novo;
-  } else {
-    novo->prox = l->inicio;
-    l->inicio = novo;
+void addList(No *l, No *novo) {
+  No *tmp;
+  if(l->prox == NULL){
+    l->prox = novo;
+  }else{
+    tmp = l->prox;
+    while(tmp->prox != NULL){
+      tmp = tmp->prox;
+    }
+    tmp->prox = novo;
   }
 }

@@ -26,10 +26,6 @@ typedef struct reg {
   struct reg *prox;
 } No;
 
-typedef struct Lista {
-  No *inicio;
-} Lista;
-
 int criarEstruturaAuxiliar(int posicao, int tamanho);
 int inserirNumeroEmEstrutura(int posicao, int valor);
 int excluirNumeroDoFinaldaEstrutura(int posicao);
@@ -43,9 +39,8 @@ int getQuantidadeElementosEstruturaAuxiliar(int posicao);
 No *montarListaEncadeadaComCabecote();
 void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[]);
 void destruirListaEncadeadaComCabecote(No **inicio);
-Lista *criarLista();
 No *criarNo(int valor);
-void addList(Lista *l,No *novo);
+void addList(No *l,No *novo);
 
 void inicializar();
 void finalizar();
